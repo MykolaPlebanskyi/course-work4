@@ -5,7 +5,6 @@ pipeline {
             steps {
                 script {
                     sh '''
-                    docker info
                     docker version
                     docker compose version
                     '''
@@ -14,7 +13,7 @@ pipeline {
         }
         stage('Prune DOcker data') {
             steps {
-                sh 'sudo docker sysyem prune -a --volumes -f'
+                sh 'sudo docker system prune -a --volumes -f'
             }
         }
         stage('Start Docker Compose') {
