@@ -1,0 +1,32 @@
+version: "3.8"
+services:
+  nginx:
+    build:
+      context: .
+      dockerfile: nginx/Dockerfile
+    ports:
+      - 8081:80
+    volumes:
+      - ./web:/var/www/html
+    networks:
+      - internal
+  php:
+    build:
+      context: .
+      dockerfile: php/Dockerfile
+    volumes:
+      - ./web:/var/www/html
+    networks:
+      - internal
+  mariadb:
+    image: mariadb:latest
+    environment:
+      MYSQL_ROOT_PASSWORD: strongpassword
+      MYSQL_DATABASE: occurence_db
+      MYSQL_USER: occurence_user
+      MYSQL_PASSWORD: strongpassword
+    networks:
+      - internal
+networks:
+  internal:
+    driver: bridge
